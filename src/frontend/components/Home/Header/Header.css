@@ -1,0 +1,204 @@
+.app__header {
+    color: white;
+    font-family: var(--font-base);
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0;
+}
+
+.app__header-info {
+    display: flex;
+}
+
+.header__info {
+    display: flex;
+    flex-direction: column;
+    flex: 5;
+}
+
+.header__info p {
+    color: var(--color-lightgray);
+    font-size: 13px;
+    padding: 0.7rem 0;
+}
+
+.header__info-stats {
+    display: flex;
+}
+
+.header__info-buttons {
+    padding: 1rem 0;
+}
+
+.buttons-explore {
+    padding: 0.5rem 1rem;
+    background: linear-gradient(214.02deg, #B75CFF 6.04%, #671AE4 92.95%);
+    border-radius: 5px;
+    border: none;
+    font-weight: 500;
+    font-size: 13px;
+    color: white;
+    margin-right: 15px;
+
+    transition: all 1s ease;
+
+    cursor: pointer;
+}
+
+.buttons-explore:hover {
+    background-image: linear-gradient(184.02deg, #B75CFF 6.04%, #671AE4 92.95%);
+}
+
+.buttons-sell {
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    border: none;
+    font-weight: 500;
+    font-size: 13px;
+    color: white;
+
+    transition: all 0.5s ease;
+
+    cursor: pointer;
+}
+
+.buttons-sell:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.header__info-stats {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0;
+    width: 90%;
+}
+
+.header__info-stats h3 {
+    font-size: 18px;
+}
+
+.header__info-stats span {
+    color: var(--color-lightgray);
+    font-size: 13px;
+}
+
+.header__info-stats .stats {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header__images {
+    display: flex;
+    flex: 5;
+    justify-content: flex-end;
+}
+
+.header__images img {
+    width: 90%;
+    height: 95%;
+}
+
+.app__header-tech {
+    display: flex;
+    padding: 4rem 0;
+    justify-content: space-between;
+}
+
+.header__tech {
+    display: flex;
+    align-items: center;
+    height: 100px;
+    width: 25%;
+}
+
+.binance-logo img, .ethereum-logo img, .blockchain-logo img {
+    width: 100%;
+}
+
+@media screen and (min-width: 870px) {
+
+    
+}
+
+@media screen and (min-width: 900px) {
+
+    .app__header-info {
+        margin-top: 20px;
+    }
+
+    .header__info h1 {
+        font-size: 50px;
+    }
+
+    .header__info p {
+        font-size: 18px;
+        padding: 1.3rem 0;
+    }
+
+    .buttons-explore, .buttons-sell {
+        padding: 0.7rem 1.7rem;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 7px;
+        margin-right: 20px;
+    }
+    
+    .header__info-stats {
+        padding: 1.5rem 0;
+    }
+
+    .header__info-stats h3 {
+        font-size: 20px;
+    }
+
+    .header__info-stats span {
+        font-size: 20px;
+    }
+
+    .app__header-tech {
+        padding: 4rem 0;
+    }
+}
+
+@media screen and (min-width: 1600px) {
+
+    .app__header-info {
+        margin-top: 30px;
+    }
+
+    .header__info h1 {
+        font-size: 80px;
+    }
+
+    .header__info p {
+        font-size: 25px;
+        padding: 2rem 0;
+    }
+
+    .buttons-explore, .buttons-sell {
+        padding: 1rem 2rem;
+        font-size: 20px;
+        font-weight: 600;
+        border-radius: 10px;
+        margin-right: 25px;
+    }
+    
+    .header__info-stats {
+        padding: 2rem 0;
+        width: 75%;
+    }
+
+    .header__info-stats h3 {
+        font-size: 27px;
+    }
+
+    .header__info-stats span {
+        font-size: 27px;
+    }
+
+    .app__header-tech {
+        padding: 8rem 0;
+    }
+}

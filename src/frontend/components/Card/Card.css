@@ -1,0 +1,92 @@
+.app__card {
+    width: 32%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 7px;
+}
+
+.card__image {
+    width: 86%;
+    padding-top: 7%;
+}
+
+.card__image img {
+    width: 100%;
+    border-radius: 7px;
+}
+
+.card__info {
+    width: 86%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 1rem 0;
+}
+
+.card__info h4 {
+    font-size: 15px;
+}
+
+.card__info-name {
+    justify-self: flex-start;
+}
+
+.card__info-bid {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.card__info-bid p {
+    font-size: 11px;
+    padding-bottom: 5px;
+    color: var(--color-lightgray);
+}
+
+.app__card button {
+    height: 27px;
+    width: 86%;
+    text-align: center;
+    margin-bottom: 7%;
+    background: linear-gradient(214.02deg, #B75CFF 6.04%, #671AE4 92.95%);
+    border-radius: 5px;
+    border: none;
+    font-weight: 500;
+    font-size: 13px;
+    color: white;
+    cursor: pointer;
+}
+
+@media screen and (min-width: 1280px) {
+    .card__info h4 {
+        font-size: 20px;
+    }
+
+    .card__info-bid p {
+        font-size: 13px;
+    }
+
+    .app__card button {
+        height: 35px;
+        font-size: 16px;
+        font-weight: 600;
+    }
+}
+
+@media screen and (min-width: 1600px) {
+    .card__info h4 {
+        font-size: 25px;
+    }
+
+    .card__info-bid p {
+        font-size: 14px;
+    }
+
+    .app__card button {
+        height: 40px;
+        font-size: 17px;
+        font-weight: 600;
+    }
+}

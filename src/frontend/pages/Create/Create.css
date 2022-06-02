@@ -1,0 +1,54 @@
+.app__create {
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.create-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-field {
+    width: 500px;
+    height: 40px;
+    margin-bottom: 20px;
+    border: none;
+    background-color: transparent;
+    border-bottom: 1px solid var(--color-lightgray);
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.form-field:focus {
+    outline: none;
+    width: 510px;
+    height: 45px;
+    border-bottom: 1px solid white;
+}
+
+.create-form button {
+    margin-top: 20px;
+    width: 510px;
+    height: 50px;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    background-image: linear-gradient(214.02deg, #B75CFF 6.04%, #671AE4 92.95%);
+}
+
+.create-form button:hover {
+    background-image: linear-gradient(184.02deg, #B75CFF 6.04%, #671AE4 92.95%);
+}
+
+input[type="file"] {
+    display: none;
+}
+
+label {
+    color: white;
+    font-family: var(--font-base);
+}

@@ -1,0 +1,119 @@
+.app__about {
+    color: white;
+    font-family: var(--font-base);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.app__about-title {
+    font-size: 23px;
+    font-weight: 600;
+}
+
+.app__about-info {
+    display: flex;
+    padding: 2.5rem 0;
+    align-items: center;
+}
+
+.about__image {
+    display: flex;
+    flex: 5;
+}
+
+.about__image img {
+    width: 85%;
+}
+
+.about__desc {
+    display: flex;
+    flex: 5;
+    flex-direction: column;
+}
+
+.about__desc h3 {
+    font-size: 17px;
+}
+
+.about__desc p {
+    color: var(--color-lightgray);
+    font-size: 13px;
+    line-height: 20px;
+    padding: 1.5rem 0;
+}
+
+.about__desc button {
+    padding: 0.5rem 1rem;
+    background: linear-gradient(214.02deg, #B75CFF 6.04%, #671AE4 92.95%);
+    border-radius: 5px;
+    border: none;
+    font-weight: 500;
+    font-size: 13px;
+    color: white;
+    width: 30%;
+
+    transition: all 0.5s ease;
+
+    cursor: pointer;
+}
+
+.about__desc button:hover {
+    background-image: linear-gradient(184.02deg, #B75CFF 6.04%, #671AE4 92.95%);
+}
+
+@media screen and (min-width: 900px) {
+    .app__about-title {
+        font-size: 35px;
+        margin-bottom: 30px;
+    }
+
+    .about__image img {
+        width: 75%;
+    }
+
+    .about__desc h3 {
+        font-size: 22px;
+    }
+    
+    .about__desc p {
+        font-size: 14px;
+        line-height: 35px;
+        padding: 2rem 0;
+    }
+
+    .about__desc button {
+        padding: 0.7rem 1.5rem;
+        border-radius: 7px;
+        font-weight: 600;
+        font-size: 13px;
+    }
+}
+
+@media screen and (min-width: 1600px) {
+    .app__about-title {
+        font-size: 45px;
+        margin-bottom: 25px;
+    }
+
+    .about__image img {
+        width: 65%;
+    }
+
+    .about__desc h3 {
+        font-size: 35px;
+    }
+    
+    .about__desc p {
+        font-size: 20px;
+        line-height: 35px;
+        padding: 3rem 0;
+    }
+
+    .about__desc button {
+        padding: 0.7rem 1.5rem;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 17px;
+    }
+}

@@ -1,0 +1,17 @@
+.App {
+    background: linear-gradient(113.49deg, #984D38 -30.3%, #181E41 58.12%);
+    padding: 0.5rem 3rem;
+}
+
+@media screen and (min-width: 960px) {
+    .App {
+        padding: 1rem 5rem;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .App {
+        padding: 1rem 10rem;
+    }
+}
+
