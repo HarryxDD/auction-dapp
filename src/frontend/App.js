@@ -49,10 +49,10 @@ const App = () => {
       <div className='App'>
           <Navbar web3Handler={web3Handler} account={account}/>
           <Routes>
-            <Route path='/' element={<Home />}/>
+            <Route path='/' element={<Home marketplace={marketplace} nft={nft} />}/>
             <Route path='/aboutus' element={<AboutUs />}/>
-            <Route path='/market' element={<Market />}/>
-            <Route path='/create' element={<Create />}/>
+            <Route path='/market' element={<Market marketplace={marketplace} nft={nft} />}/>
+            <Route path='/create' element={<Create marketplace={marketplace} nft={nft} />}/>
           </Routes>
           <Footer />
       </div>

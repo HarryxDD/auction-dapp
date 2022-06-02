@@ -6,7 +6,7 @@ const toWei = (num) => ethers.utils.parseEther(num.toString())
 const fromWei = (num) => ethers.utils.formatEther(num)
 
 describe("NFTMarketplace", function() {
-    let deployer, addr1, addr2, nft, marketplace
+    let deployer, addr1, addr2, addr3, nft, marketplace
     let feePercent = 1
     let URI = "Sample URI"
 
@@ -14,7 +14,7 @@ describe("NFTMarketplace", function() {
         const NFT = await ethers.getContractFactory("NFT");
         const Marketplace = await ethers.getContractFactory("Marketplace");
 
-        [deployer, addr1, addr2] = await ethers.getSigners()
+        [deployer, addr1, addr2, addr3] = await ethers.getSigners()
 
         nft = await NFT.deploy();
         marketplace = await Marketplace.deploy(feePercent);
@@ -70,7 +70,7 @@ describe("NFTMarketplace", function() {
             expect(item.itemId).to.equal(1)
             expect(item.nft).to.equal(nft.address)
             expect(item.tokenId).to.equal(1)
-            expect(item.price).to.equal(toWei(1))
+            expect(item.bids).to.equal(toWei(1))
             expect(item.sold).to.equal(false)
         })
 
@@ -81,7 +81,51 @@ describe("NFTMarketplace", function() {
         // })
     })
 
-    describe("Purchasing marketplace items", function () {
+    // describe("Purchasing marketplace items", function () {
+    //     let price = 2
+    //     let fee = (feePercent/100)*price
+    //     let totalPriceInWei
+    //     beforeEach(async function () {
+    //         await nft.connect(addr1).mint(URI)
+    //         await nft.connect(addr1).setApprovalForAll(marketplace.address, true)
+    //         await marketplace.connect(addr1).makeItem(nft.address, 1, toWei(price))
+    //     })
+
+    //     it("Should update item as sold, pay seller, transfer NFT to buyer, charge fees and emit a Bought event", async function () {
+    //         const sellerInitialEthBal = await addr1.getBalance()
+    //         const feeAccountInitialEthBal = await deployer.getBalance()
+
+    //         totalPriceInWei = await marketplace.getTotalPrice(1);
+
+    //         await expect(marketplace.connect(addr2).purchaseItem(1, { value: totalPriceInWei }))
+    //             .to.emit(marketplace, "Bought")
+    //             .withArgs(
+    //                 1,
+    //                 nft.address,
+    //                 1,
+    //                 toWei(price),
+    //                 addr1.address,
+    //                 addr2.address
+    //             )
+            
+    //         const sellerFinalEthBal = await addr1.getBalance()
+    //         const feeAccountFinalEthBal = await deployer.getBalance()
+
+    //         expect(+fromWei(sellerFinalEthBal)).to.equal(+price + +fromWei(sellerInitialEthBal))
+
+    //         expect(+fromWei(feeAccountFinalEthBal)).to.equal(+fee + +fromWei(feeAccountInitialEthBal))
+
+    //         expect(await nft.ownerOf(1)).to.equal(addr2.address);
+
+    //         expect((await marketplace.items(1)).sold).to.equal(true)
+    //     })
+
+    //     // it("Should fail for invalid item ids, sold items and when not enough ether is paid", async function () {
+            
+    //     // })
+    // })
+
+    describe("Bid an item", function () {
         let price = 2
         let fee = (feePercent/100)*price
         let totalPriceInWei
@@ -91,37 +135,39 @@ describe("NFTMarketplace", function() {
             await marketplace.connect(addr1).makeItem(nft.address, 1, toWei(price))
         })
 
-        it("Should update item as sold, pay seller, transfer NFT to buyer, charge fees and emit a Bought event", async function () {
+        it("Should successfully bid and transfer an item to highest bidder", async function () {
             const sellerInitialEthBal = await addr1.getBalance()
-            const feeAccountInitialEthBal = await deployer.getBalance()
 
             totalPriceInWei = await marketplace.getTotalPrice(1);
 
-            await expect(marketplace.connect(addr2).purchaseItem(1, { value: totalPriceInWei }))
-                .to.emit(marketplace, "Bought")
+            await expect(marketplace.connect(addr2).bid(1, { value: totalPriceInWei + 1 }))
+                .to.emit(marketplace, "Bid")
                 .withArgs(
-                    1,
-                    nft.address,
-                    1,
-                    toWei(price),
-                    addr1.address,
-                    addr2.address
+                    addr2.address,
+                    totalPriceInWei + 1
+                )
+
+            await expect(marketplace.connect(addr3).bid(1, { value: totalPriceInWei + 4 }))
+                .to.emit(marketplace, "Bid")
+                .withArgs(
+                    addr3.address,
+                    totalPriceInWei + 4
+                )
+
+            await expect(marketplace.connect(addr1).end(1))
+                .to.emit(marketplace, "End")
+                .withArgs(
+                    addr3.address,
+                    totalPriceInWei + 4
                 )
             
             const sellerFinalEthBal = await addr1.getBalance()
-            const feeAccountFinalEthBal = await deployer.getBalance()
 
-            expect(+fromWei(sellerFinalEthBal)).to.equal(+price + +fromWei(sellerInitialEthBal))
+            // Bids will be added to the current price that user set
 
-            expect(+fromWei(feeAccountFinalEthBal)).to.equal(+fee + +fromWei(feeAccountInitialEthBal))
-
-            expect(await nft.ownerOf(1)).to.equal(addr2.address);
+            expect(await nft.ownerOf(1)).to.equal(addr3.address);
 
             expect((await marketplace.items(1)).sold).to.equal(true)
         })
-
-        // it("Should fail for invalid item ids, sold items and when not enough ether is paid", async function () {
-            
-        // })
     })
 })
