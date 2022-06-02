@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import './Collection.css'
 import { Card } from '../../../components'
 
-const Collection = ({ marketplace, nft }) => {
+const Collection = ({ marketplace, nft, setModalOpen }) => {
 
   const [items, setItems] = useState([])
   const [loading, setLoading] = useState(true)
@@ -49,7 +49,7 @@ const Collection = ({ marketplace, nft }) => {
             ? (
           <div className='app__collection-items'>
               {items.map((item, idx) => (
-                <Card key={idx} item={item}/>
+                <Card key={idx} item={item} setModalOpen={setModalOpen} />
               ))}
           </div>
         ) : (

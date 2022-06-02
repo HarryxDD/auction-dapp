@@ -1,0 +1,71 @@
+.modal__background {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(24, 17, 17, 0.8);
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal__container {
+    font-family: var(--font-base);
+    width: 27%;
+    height: fit-content;
+    border-radius: 5px;
+    background: linear-gradient(213.49deg, #984D38 -30.3%, #181E41 58.12%);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+  }
+  
+  .modal__close {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .modal__close button {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+
+    transition: all 1s ease-in-out;
+
+  }
+
+  .modal__close button:hover {
+      transform: rotate(360deg);
+  }
+
+  .modal__title {
+      padding: 2rem;
+      font-size: 30px;
+  }
+
+  .modal__subtitle {
+      font-size: 20px;
+      padding: 0 2rem;
+  }
+
+  .modal__container input {
+      margin: 5rem 2rem;
+      align-self: center;
+      width: 72%;
+  }
+
+  .modal__container .modal__placebid {
+      width: 50%;
+      align-self: center;
+      height: 50px;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 15px;
+      margin-bottom: 3rem;
+      cursor: pointer;
+      border: none;
+  }

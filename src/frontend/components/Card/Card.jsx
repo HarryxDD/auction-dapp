@@ -2,7 +2,7 @@ import React from 'react'
 import './Card.css'
 import { ethers } from 'ethers'
 
-const Card = ({ item }) => {
+const Card = ({ item, setModalOpen }) => {
   return (
     <div className='app__card'>
         <div className='card__image'>
@@ -17,7 +17,9 @@ const Card = ({ item }) => {
                 <h4>{ethers.utils.formatEther(item.totalPrice)} ETH</h4>
             </div>
         </div>
-        <button>
+        <button className="openModalBtn" onClick={() => {
+          setModalOpen(true);
+        }}>
             Place a bid
         </button>
     </div>

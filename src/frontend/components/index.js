@@ -2,6 +2,7 @@
 import Navbar from "./Navbar/Navbar";
 import Card from "./Card/Card";
 import Footer from "./Footer/Footer";
+import Modal from "./Modal/Modal";
 
 // Home
 import Header from "./Home/Header/Header";
@@ -16,5 +17,6 @@ export {
     About,
     Collection,
     Banner,
-    Footer
+    Footer,
+    Modal
 }

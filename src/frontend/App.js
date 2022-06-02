@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import './App.css'
-import { Footer, Navbar } from './components'
+import { Footer, Navbar, Modal } from './components'
 import { AboutUs, Create, Home, Market } from './pages'
 import {
   BrowserRouter as Router,
@@ -19,6 +19,8 @@ import NFTAddress from './contractsData/NFT-address.json'
 import { ethers } from 'ethers';
 
 const App = () => {
+
+  const [modalOpen, setModalOpen] = useState(false);
 
   const [loading, setLoading] = useState(true)
   const [account, setAccount] = useState(null)
@@ -46,12 +48,14 @@ const App = () => {
 
   return (
     <Router>
+      {modalOpen && <Modal setModalOpen={setModalOpen} />}
       <div className='App'>
           <Navbar web3Handler={web3Handler} account={account}/>
+          
           <Routes>
             <Route path='/' element={<Home marketplace={marketplace} nft={nft} />}/>
             <Route path='/aboutus' element={<AboutUs />}/>
-            <Route path='/market' element={<Market marketplace={marketplace} nft={nft} />}/>
+            <Route path='/market' element={<Market marketplace={marketplace} nft={nft} setModalOpen={setModalOpen} />}/>
             <Route path='/create' element={<Create marketplace={marketplace} nft={nft} />}/>
           </Routes>
           <Footer />
