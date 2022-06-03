@@ -2,9 +2,12 @@ import React from 'react'
 import { useState } from 'react'
 import './Modal.css'
 
-const Modal = ({ setModalOpen }) => {
+const Modal = ({ marketplace, setModalOpen, item }) => {
 
   const [bid, setBid] = useState()
+  const bidMarketItem = async (item) => {
+    await (await marketplace.bid(item.itemId, { value: bid })).wait()
+  }
 
   return (
     <div className="modal__background">
@@ -30,7 +33,10 @@ const Modal = ({ setModalOpen }) => {
             onChange={(e) => setBid(e.target.value)} 
             name='bid'
         />
-        <button className='modal__placebid'>Confirm</button>
+        <button 
+          className='modal__placebid'
+          onClick={() => bidMarketItem(item)}
+        >Confirm</button>
       </div>
     </div>
   )

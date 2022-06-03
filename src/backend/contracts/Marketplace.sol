@@ -96,12 +96,18 @@ contract Marketplace is ReentrancyGuard {
         );
     }
 
+    function getCurrentBid(uint _itemId) public view returns (uint256) {
+        Item storage item = items[_itemId];
+        uint highestBidAmount = item.bids;
+
+        return highestBidAmount;
+    }
+
     function bid(uint _itemId) external payable {
 
-        Item storage item = items[_itemId];
+        require(msg.value > getCurrentBid(_itemId), "value < highest");
 
-        highestBid = item.bids;
-        require(msg.value > highestBid, "value < highest");
+        Item storage item = items[_itemId];
 
         if (highestBidder != address(0)) {
             item.bids += highestBid;
