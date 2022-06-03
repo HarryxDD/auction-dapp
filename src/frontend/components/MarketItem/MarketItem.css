@@ -1,4 +1,4 @@
-.app__collection {
+.app__marketitem {
     color: white;
     font-family: var(--font-base);
     display: flex;
@@ -7,7 +7,7 @@
     padding: 4rem 0;
 }
 
-.app__collection-title {
+.app__marketitem-title {
     font-size: 35px;
     font-weight: 600;
     display: flex;
@@ -15,31 +15,27 @@
     align-items: center;
 }
 
-.app__collection-title p {
+.app__marketitem-title span {
     font-size: 13px;
     font-weight: 500;
     color: var(--color-lightgray);
     padding: 20px 0;
 
     transition: all 1s ease;
-    cursor: pointer;
 }
 
-.app__collection-title p:hover {
-    text-decoration: underline;
-}
 
-.app__collection-items {
+.app__marketitem-items {
     display: flex;
     justify-content: space-between;
 }
 
 @media screen and (min-width: 1600px) {
-    .app__collection-title {
+    .app__marketitem-title {
         font-size: 45px;
     }
 
-    .app__collection-title p {
+    .app__marketitem-title p {
         font-size: 17px;
     }
 }

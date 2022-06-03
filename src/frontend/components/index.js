@@ -10,6 +10,9 @@ import About from "./Home/About/About";
 import Collection from "./Home/Collection/Collection";
 import Banner from "./Home/Banner/Banner";
 
+// MarketItem
+import MarketItem from "./MarketItem/MarketItem";
+
 export {
     Navbar,
     Card,
@@ -18,5 +21,6 @@ export {
     Collection,
     Banner,
     Footer,
-    Modal
+    Modal,
+    MarketItem
 }

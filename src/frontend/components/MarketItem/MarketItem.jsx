@@ -1,11 +1,11 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import './Collection.css'
-import { Card } from '../../../components'
+import './MarketItem.css'
+import Card from '../Card/Card'
 
 import { Link } from 'react-router-dom'
 
-const Collection = ({ marketplace, nft, setModalOpen }) => {
+const MarketItem = ({ marketplace, nft, setModalOpen }) => {
 
   const [items, setItems] = useState([])
   const [loading, setLoading] = useState(true)
@@ -16,12 +16,9 @@ const Collection = ({ marketplace, nft, setModalOpen }) => {
       for (let i = 1; i <= itemCount; i++) {
           const item = await marketplace.items(i)
           if(!item.sold) {
-              // get uri url from nft contract
               const uri = await nft.tokenURI(item.tokenId)
-              // use uri to fetch the nft metadata stored on ipfs
               const response = await fetch(uri)
               const metadata = await response.json()
-              // get total price of item (item price + fee)
               const totalPrice = await marketplace.getTotalPrice(item.itemId)
               items.push({
                   totalPrice,
@@ -42,20 +39,20 @@ const Collection = ({ marketplace, nft, setModalOpen }) => {
   }, [])
 
   return (
-    <div className='app__collection'>
-        <div className='app__collection-title'>
-            Collections
-            <p><Link to="/market">Browse our items -&gt;</Link></p>
+    <div className='app__marketitem'>
+        <div className='app__marketitem-title'>
+            Market
+            <span>Find your favorite NFT</span>
         </div>
         {items.length > 0
             ? (
-          <div className='app__collection-items'>
-              {items.slice(0, 3).map((item, idx) => (
+          <div className='app__marketitem-items'>
+              {items.map((item, idx) => (
                 <Card key={idx} item={item} setModalOpen={setModalOpen} />
               ))}
           </div>
         ) : (
-          <div className='app__collection-items'>
+          <div className='app__marketitem-items'>
             <h2>
               No NFT
             </h2>
@@ -66,4 +63,4 @@ const Collection = ({ marketplace, nft, setModalOpen }) => {
   )
 }
 
-export default Collection
+export default MarketItem
