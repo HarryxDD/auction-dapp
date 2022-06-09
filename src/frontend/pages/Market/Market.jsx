@@ -2,10 +2,10 @@ import React from 'react'
 import './Market.css'
 import { MarketItem } from '../../components'
 
-const Market = ({ marketplace, nft, setModalOpen }) => {
+const Market = ({ marketplace, setModalOpen }) => {
   return (
     <div>
-        <MarketItem marketplace={marketplace} nft={nft} setModalOpen={setModalOpen} />
+        <MarketItem marketplace={marketplace} setModalOpen={setModalOpen} />
     </div>
   )
 }

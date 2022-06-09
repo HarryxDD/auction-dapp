@@ -5,7 +5,7 @@ import { ethers } from "ethers"
 import { create as ipfsHttpClient } from 'ipfs-http-client'
 const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0')
 
-const Create = ({ marketplace, nft }) => {
+const Create = ({ marketplace }) => {
 
   const [image, setImage] = useState('')
   const [price, setPrice] = useState(null)
@@ -48,14 +48,10 @@ const Create = ({ marketplace, nft }) => {
   const mintThenList = async (result) => {
       const uri = `https://ipfs.infura.io/ipfs/${result.path}`
       // mint nft
-      await (await nft.mint(uri)).wait()
-      // get tokenId of new nft
-      const id = await nft.tokenCount()
-      // approve marketplace to spend nft
-      await (await nft.setApprovalForAll(marketplace.address, true)).wait()
-      // add nft to marketplace
       const listingPrice = ethers.utils.parseEther(price.toString())
-      await (await marketplace.makeItem(nft.address, id, listingPrice)).wait()
+      await (await marketplace.mint(uri, listingPrice)).wait()
+      // get tokenId of new nft
+      const id = await marketplace.tokenCount()
   }
 
   return (
