@@ -1,25 +1,23 @@
-.app__card {
-    width: 28vw;
+.app__item {
+    width: 32%;
     display: flex;
     flex-direction: column;
     align-items: center;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 7px;
-    margin: 0 1rem;
 }
 
-.card__image {
+.item__image {
     width: 86%;
-    height: 86%;
     padding-top: 7%;
 }
 
-.card__image img {
+.item__image img {
     width: 100%;
     border-radius: 7px;
 }
 
-.card__info {
+.item__info {
     width: 86%;
     display: flex;
     align-items: flex-end;
@@ -27,27 +25,27 @@
     padding: 1rem 0;
 }
 
-.card__info h4 {
+.item__info h4 {
     font-size: 15px;
 }
 
-.card__info-name {
+.item__info-name {
     justify-self: flex-start;
 }
 
-.card__info-bid {
+.item__info-bid {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
 }
 
-.card__info-bid p {
+.item__info-bid p {
     font-size: 11px;
     padding-bottom: 5px;
     color: var(--color-lightgray);
 }
 
-.app__card button {
+.app__item button {
     height: 27px;
     width: 86%;
     text-align: center;
@@ -62,15 +60,15 @@
 }
 
 @media screen and (min-width: 1280px) {
-    .card__info h4 {
+    .item__info h4 {
         font-size: 20px;
     }
 
-    .card__info-bid p {
+    .item__info-bid p {
         font-size: 13px;
     }
 
-    .app__card button {
+    .app__item button {
         height: 35px;
         font-size: 16px;
         font-weight: 600;
@@ -78,15 +76,15 @@
 }
 
 @media screen and (min-width: 1600px) {
-    .card__info h4 {
+    .item__info h4 {
         font-size: 25px;
     }
 
-    .card__info-bid p {
+    .item__info-bid p {
         font-size: 14px;
     }
 
-    .app__card button {
+    .app__item button {
         height: 40px;
         font-size: 17px;
         font-weight: 600;

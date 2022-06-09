@@ -6,6 +6,7 @@ const Market = ({ marketplace, setModalOpen }) => {
   return (
     <div>
         <MarketItem marketplace={marketplace} setModalOpen={setModalOpen} />
+
     </div>
   )
 }

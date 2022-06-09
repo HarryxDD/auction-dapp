@@ -1,6 +1,7 @@
 // Reuse components
 import Navbar from "./Navbar/Navbar";
 import Card from "./Card/Card";
+import Item from "./Item/Item";
 import Footer from "./Footer/Footer";
 import Modal from "./Modal/Modal";
 
@@ -16,6 +17,7 @@ import MarketItem from "./MarketItem/MarketItem";
 export {
     Navbar,
     Card,
+    Item,
     Header,
     About,
     Collection,
