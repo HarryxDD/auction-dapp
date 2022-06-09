@@ -2,20 +2,26 @@
 pragma solidity ^0.8.4;
 
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
-
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
-contract Marketplace is ReentrancyGuard {
+contract Marketplace is ERC721URIStorage, ReentrancyGuard {
+
+    uint public tokenCount;
+
     address payable public immutable feeAccount;
     uint public immutable feePercent;
     uint public itemCount;
 
-    address public highestBidder;
-    uint public highestBid;
+    // address public highestBidder;
+    // uint public highestBid;
+
+    mapping(uint => address) public highestBidder;
+    mapping(uint => uint) public highestBid;
 
     struct Item{
         uint itemId;
-        IERC721 nft;
         uint tokenId;
         uint bids;
         address payable seller;
@@ -24,7 +30,6 @@ contract Marketplace is ReentrancyGuard {
 
     event Offered (
         uint itemId,
-        address indexed nft,
         uint tokenId,
         uint price,
         address indexed seller
@@ -32,7 +37,6 @@ contract Marketplace is ReentrancyGuard {
 
     event Bought (
         uint itemId,
-        address indexed nft,
         uint tokenId,
         uint price,
         address indexed seller,
@@ -45,55 +49,48 @@ contract Marketplace is ReentrancyGuard {
     // itemId -> Item
     mapping(uint => Item) public items;
 
-    constructor(uint _feePercent) {
+    constructor(uint _feePercent) ERC721("Alyx Mystery", "ALX") {
         feeAccount = payable(msg.sender);
         feePercent = _feePercent;
     }
 
-    function makeItem(IERC721 _nft, uint _tokenId, uint _price) external nonReentrant {
-        require(_price >0, "Price must be greater than zero");
+    function mint(string memory _tokenURI, uint price) external returns(uint) {
+        tokenCount++;
+        _safeMint(msg.sender, tokenCount);
+        _setTokenURI(tokenCount, _tokenURI);
+        setApprovalForAll(address(this), true);
+        makeItem(tokenCount, price);
+        return (tokenCount);
+    }
+
+    function makeItem(uint _tokenId, uint _price) public nonReentrant {
+        require(_price > 0, "Price must be greater than zero");
         itemCount++;
-        _nft.transferFrom(msg.sender, address(this), _tokenId);
+        transferFrom(msg.sender, address(this), _tokenId);
 
         items[itemCount] = Item (
             itemCount,
-            _nft,
             _tokenId,
             _price,
             payable(msg.sender),
             false
         );
 
+        //_approve(address(this), tokenCount);
+
         emit Offered (
             itemCount,
-            address(_nft),
             _tokenId,
             _price,
             msg.sender
         );
     }
 
-    function purchaseItem(uint _itemId) external payable nonReentrant {
-        uint _totalPrice = getTotalPrice(_itemId);
-        Item storage item = items[_itemId];
-        require(_itemId > 0 && _itemId <= itemCount, "item doesn't exist");
-        require(msg.value >= _totalPrice, "not enough ether to cover item price and market fee");
-        require(!item.sold, "item already sold");
+    function getCurrentBid(uint _itemId) public view returns (uint256) {
+        Item memory item = items[_itemId];
+        uint highestBidAmount = item.bids;
 
-        item.seller.transfer(item.bids);
-        feeAccount.transfer(_totalPrice - item.bids);
-
-        item.sold = true;
-        item.nft.transferFrom(address(this), msg.sender, item.tokenId);
-
-        emit Bought (
-            _itemId,
-            address(item.nft),
-            item.tokenId,
-            item.bids,
-            item.seller,
-            msg.sender
-        );
+        return highestBidAmount;
     }
 
     function getCurrentBid(uint _itemId) public view returns (uint256) {
@@ -105,37 +102,39 @@ contract Marketplace is ReentrancyGuard {
 
     function bid(uint _itemId) external payable {
 
-        require(msg.value > getCurrentBid(_itemId), "value < highest");
-
         Item storage item = items[_itemId];
 
-        if (highestBidder != address(0)) {
-            item.bids += highestBid;
-        }
+        require(msg.value > getCurrentBid(_itemId) || msg.value > item.bids, "value < highest");
 
-        highestBidder = msg.sender;
-        highestBid = msg.value;
+
+        highestBidder[_itemId] = msg.sender;
+        highestBid[_itemId] = msg.value;
+
+        if (highestBidder[_itemId] != address(0)) {
+            item.bids = highestBid[_itemId];
+        }
 
         emit Bid(msg.sender, msg.value);
     }
 
-    function end(uint _itemId) external {
+    function end(uint _itemId) external payable {
         uint _totalPrice = getTotalPrice(_itemId);
         Item storage item = items[_itemId];
         require(msg.sender == item.seller, "Must be seller");
 
-        if (highestBidder != address(0)) {
-            item.seller.transfer(item.bids);
-            feeAccount.transfer(_totalPrice - item.bids);
+        if (highestBidder[_itemId] != address(0)) {
+            payable(item.seller).transfer(item.bids);
+            payable(feeAccount).transfer(_totalPrice - item.bids);
 
             item.sold = true;
-            item.nft.safeTransferFrom(address(this), highestBidder, item.tokenId);
+            _transfer(address(this), highestBidder[_itemId], item.tokenId);
 
         } else {
-            item.nft.safeTransferFrom(address(this), item.seller, item.tokenId);
+            _transfer(address(this), item.seller, item.tokenId);
         }
+        
 
-        emit End(highestBidder, highestBid);
+        emit End(highestBidder[_itemId], highestBid[_itemId]);
     }
 
     function getTotalPrice(uint _itemId) view public returns(uint) {

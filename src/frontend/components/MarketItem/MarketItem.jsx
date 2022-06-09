@@ -6,7 +6,7 @@ import Item from '../Item/Item'
 import { Link } from 'react-router-dom'
 
 
-const MarketItem = ({ marketplace, nft, account }) => {
+const MarketItem = ({ marketplace, setModalOpen }) => {
 
   const [items, setItems] = useState([])
   const [loading, setLoading] = useState(true)
@@ -19,7 +19,7 @@ const MarketItem = ({ marketplace, nft, account }) => {
       for (let i = 1; i <= itemCount; i++) {
           const item = await marketplace.items(i)
           if(!item.sold) {
-              const uri = await nft.tokenURI(item.tokenId)
+              const uri = await marketplace.tokenURI(item.tokenId)
               const response = await fetch(uri)
               const metadata = await response.json()
               const totalPrice = await marketplace.getTotalPrice(item.itemId)

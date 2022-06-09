@@ -5,7 +5,7 @@ import { Card } from '../../../components'
 
 import { Link } from 'react-router-dom'
 
-const Collection = ({ marketplace, nft, setModalOpen }) => {
+const Collection = ({ marketplace, setModalOpen }) => {
 
   const [items, setItems] = useState([])
   const [loading, setLoading] = useState(true)
@@ -17,7 +17,7 @@ const Collection = ({ marketplace, nft, setModalOpen }) => {
           const item = await marketplace.items(i)
           if(!item.sold) {
               // get uri url from nft contract
-              const uri = await nft.tokenURI(item.tokenId)
+              const uri = await marketplace.tokenURI(item.tokenId)
               // use uri to fetch the nft metadata stored on ipfs
               const response = await fetch(uri)
               const metadata = await response.json()
