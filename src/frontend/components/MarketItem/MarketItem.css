@@ -27,7 +27,9 @@
 
 .app__marketitem-items {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+
+    justify-content: center;
 }
 
 .app__owneditem {
@@ -59,7 +61,8 @@
 
 .app__owneditem-items {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 @media screen and (min-width: 1600px) {

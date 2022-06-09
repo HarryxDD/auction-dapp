@@ -1,12 +1,15 @@
 import React from 'react'
 import { useState } from 'react'
 import './Modal.css'
+import { ethers } from "ethers"
 
 const Modal = ({ marketplace, setModalOpen, item }) => {
 
   const [bid, setBid] = useState()
+
   const bidMarketItem = async (item) => {
-    await (await marketplace.bid(item.itemId, { value: bid })).wait()
+    const listingBid = ethers.utils.parseEther(bid.toString())
+    await (await marketplace.bid(item.itemId, { value: listingBid })).wait()
   }
 
   return (
@@ -25,7 +28,7 @@ const Modal = ({ marketplace, setModalOpen, item }) => {
           <h1>Place a bid</h1>
         </div>
         <div className='modal__subtitle'>
-            You must bid at least ... ETH
+            You must bid at least {ethers.utils.formatEther(item.totalPrice)} ETH
         </div>
         <input 
             className="form-field" 

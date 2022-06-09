@@ -5,7 +5,7 @@ import { Card } from '../../../components'
 
 import { Link } from 'react-router-dom'
 
-const Collection = ({ marketplace, setModalOpen }) => {
+const Collection = ({ marketplace }) => {
 
   const [items, setItems] = useState([])
   const [loading, setLoading] = useState(true)
@@ -51,7 +51,7 @@ const Collection = ({ marketplace, setModalOpen }) => {
             ? (
           <div className='app__collection-items'>
               {items.slice(0, 3).map((item, idx) => (
-                <Card key={idx} item={item} setModalOpen={setModalOpen} />
+                <Card key={idx} item={item} marketplace={marketplace} />
               ))}
           </div>
         ) : (

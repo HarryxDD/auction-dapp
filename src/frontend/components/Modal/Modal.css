@@ -60,6 +60,10 @@
       width: 72%;
   }
 
+  .modal__container input:focus {
+    width: 80%;
+  }
+
   .modal__container .modal__placebid {
       width: 50%;
       align-self: center;

@@ -18,7 +18,7 @@ import { ethers } from 'ethers';
 
 const App = () => {
 
-  
+  const [modalOpen, setModalOpen] = useState(false);
 
   const [loading, setLoading] = useState(true)
   const [account, setAccount] = useState(null)
@@ -49,7 +49,7 @@ const App = () => {
           <Routes>
             <Route path='/' element={<Home marketplace={marketplace} />}/>
             <Route path='/aboutus' element={<AboutUs />}/>
-            <Route path='/market' element={<Market marketplace={marketplace} setModalOpen={setModalOpen} />}/>
+            <Route path='/market' element={<Market marketplace={marketplace} account={account} setModalOpen={setModalOpen} />}/>
             <Route path='/create' element={<Create marketplace={marketplace} />}/>
           </Routes>
           <Footer />
