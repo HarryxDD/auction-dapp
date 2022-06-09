@@ -87,13 +87,6 @@ contract Marketplace is ERC721URIStorage, ReentrancyGuard {
     }
 
     function getCurrentBid(uint _itemId) public view returns (uint256) {
-        Item memory item = items[_itemId];
-        uint highestBidAmount = item.bids;
-
-        return highestBidAmount;
-    }
-
-    function getCurrentBid(uint _itemId) public view returns (uint256) {
         Item storage item = items[_itemId];
         uint highestBidAmount = item.bids;
 
