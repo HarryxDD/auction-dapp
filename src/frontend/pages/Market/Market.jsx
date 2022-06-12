@@ -4,7 +4,7 @@ import { Collection } from '../../components'
 
 const Market = ({ marketplace, nft, setModalOpen }) => {
   return (
-    <div>
+    <div className='app__marketpage'>
         <Collection marketplace={marketplace} nft={nft} setModalOpen={setModalOpen} />
     </div>
   )
