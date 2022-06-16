@@ -3,7 +3,9 @@ import { useState, useEffect } from 'react'
 import './Collection.css'
 import { Card } from '../../../components'
 
-const Collection = ({ marketplace, nft, setModalOpen }) => {
+import { Link } from 'react-router-dom'
+
+const Collection = ({ marketplace }) => {
 
   const [items, setItems] = useState([])
   const [loading, setLoading] = useState(true)
@@ -15,7 +17,7 @@ const Collection = ({ marketplace, nft, setModalOpen }) => {
           const item = await marketplace.items(i)
           if(!item.sold) {
               // get uri url from nft contract
-              const uri = await nft.tokenURI(item.tokenId)
+              const uri = await marketplace.tokenURI(item.tokenId)
               // use uri to fetch the nft metadata stored on ipfs
               const response = await fetch(uri)
               const metadata = await response.json()
@@ -43,13 +45,13 @@ const Collection = ({ marketplace, nft, setModalOpen }) => {
     <div className='app__collection'>
         <div className='app__collection-title'>
             Collections
-            <p>Browse our items -&gt;</p>
+            <p><Link to="/market">Browse our items -&gt;</Link></p>
         </div>
         {items.length > 0
             ? (
           <div className='app__collection-items'>
-              {items.map((item, idx) => (
-                <Card key={idx} item={item} setModalOpen={setModalOpen} />
+              {items.slice(0, 3).map((item, idx) => (
+                <Card key={idx} item={item} marketplace={marketplace} />
               ))}
           </div>
         ) : (

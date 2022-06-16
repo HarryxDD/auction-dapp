@@ -1,11 +1,12 @@
 import React from 'react'
 import './Market.css'
-import { Collection } from '../../components'
+import { MarketItem } from '../../components'
 
-const Market = ({ marketplace, nft, setModalOpen }) => {
+const Market = ({ marketplace, account, setModalOpen }) => {
   return (
     <div>
-        <Collection marketplace={marketplace} nft={nft} setModalOpen={setModalOpen} />
+        <MarketItem marketplace={marketplace} account={account} setModalOpen={setModalOpen} />
+
     </div>
   )
 }
